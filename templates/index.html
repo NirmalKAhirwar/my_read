@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Recommender System</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap"
+      rel="stylesheet" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+    <style>
+      body {
+        font-family: "Roboto", sans-serif;
+        background-color: #121212;
+        color: #ffffff;
+        margin: 0;
+        padding: 0;
+      }
+      .navbar {
+        background-color: #1e1e1e;
+        padding: 15px 0;
+      }
+      .navbar-brand {
+        color: #ffffff;
+        font-size: 24px;
+        font-weight: 700;
+        margin-left: 20px;
+      }
+      .nav-links {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: flex-end;
+      }
+      .nav-links li {
+        margin-right: 20px;
+      }
+      .nav-links a {
+        color: #ffffff;
+        text-decoration: none;
+        font-weight: 300;
+        transition: color 0.3s ease;
+      }
+      .nav-links a:hover {
+        color: #1db954;
+      }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      h1 {
+        font-size: 48px;
+        text-align: center;
+        margin-bottom: 40px;
+        color: #1db954;
+      }
+      .book-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 30px;
+      }
+      .book-card {
+        background-color: #1e1e1e;
+        border-radius: 10px;
+        overflow: hidden;
+        transition: transform 0.3s ease;
+      }
+      .book-card:hover {
+        transform: translateY(-5px);
+      }
+      .book-image {
+        width: 100%;
+        height: 350px;
+        object-fit: cover;
+      }
+      .book-info {
+        padding: 20px;
+      }
+      .book-title {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+      .book-author {
+        font-size: 16px;
+        color: #b3b3b3;
+        margin-bottom: 10px;
+      }
+      .book-stats {
+        display: flex;
+        justify-content: space-between;
+        font-size: 14px;
+        color: #b3b3b3;
+      }
+      .book-stats i {
+        color: #1db954;
+        margin-right: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <a class="navbar-brand">Book Recommender</a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+        <li><a href="/recommend">Recommend</a></li>
+        <!-- <li><a href="#">Contact</a></li> -->
+      </ul>
+    </nav>
+
+    <div class="container">
+      <h1>Top 50 Books</h1>
+      <div class="book-grid">
+        {% for i in range(book_name|length) %}
+        <div class="book-card">
+          <!-- <img
+            class="book-image"
+            src="{{ image[i] }}"
+            alt="{{ book_name[i] }}" /> -->
+            <img
+                class="book-image"
+                src="{% if image[i] %}{{ image[i] }}{% else %} {{url_for('static', filename='images/image_not_found.jpg')}} {% endif %}"
+                alt="{{ book_name[i] }}" />
+          <div class="book-info">
+            <h2 class="book-title">{{ book_name[i] }}</h2>
+            <p class="book-author">{{ author[i] }}</p>
+            <div class="book-stats">
+              <span><i class="fas fa-users"></i> {{ votes[i] }} votes</span>
+              <span><i class="fas fa-star"></i> {{ '%0.2f' % rating[i] }}</span>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </body>
+</html>

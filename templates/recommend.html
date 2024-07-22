@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyRead</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #1a1a2e;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #16213e;
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .navbar-brand {
+            color: #00a65a;
+            font-size: 24px;
+            font-weight: 600;
+            margin-left: 20px;
+        }
+        .nav-links {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: flex-end;
+        }
+        .nav-links li {
+            margin-right: 20px;
+        }
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 300;
+            transition: color 0.3s ease;
+        }
+        .nav-links a:hover {
+            color: #00a65a;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        h1 {
+            font-size: 48px;
+            text-align: center;
+            margin-bottom: 40px;
+            color: #00a65a;
+        }
+        .form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #0f3460;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            background-color: #16213e;
+            color: #ffffff;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .btn-submit {
+            background-color: #00a65a;
+            color: #ffffff;
+            border: none;
+            padding: 12px 24px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        .btn-submit:hover {
+            background-color: #008c4d;
+        }
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+        .book-card {
+            background-color: #0f3460;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .book-card:hover {
+            transform: translateY(-5px);
+        }
+        .book-image {
+            width: 100%;
+            height: 350px;
+            object-fit: cover;
+        }
+        .book-info {
+            padding: 20px;
+        }
+        .book-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .book-author {
+            font-size: 16px;
+            color: #b3b3b3;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a class="navbar-brand">My Book Recommender</a>
+        <ul class="nav-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/recommend">Recommend</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
+    <div class="container">
+        <h1>Recommend Books</h1>
+        <div class="form-container">
+            <form action="/recommend_books" method="post">
+                <input name="user_input" type="text" class="form-control" placeholder="Enter a book title..." />
+                <button type="submit" class="btn-submit">Get Recommendations</button>
+            </form>
+        </div>
+
+        {% if data %}
+        <div class="book-grid">
+            {% for i in data %}
+            <div class="book-card">
+                <img class="book-image" src="{{i[2]}}" alt="{{i[0]}}">
+                <div class="book-info">
+                    <h2 class="book-title">{{i[0]}}</h2>
+                    <p class="book-author">{{i[1]}}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
